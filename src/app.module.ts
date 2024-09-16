@@ -6,6 +6,7 @@ import { Post } from './typeorm/entities/Post';
 import { Profile } from './typeorm/entities/Profile';
 import { User } from './typeorm/entities/User';
 import { UsersModule } from './users/users.module';
+import { Order } from './typeorm/entities/Order';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: 'Ssdit@123',
       database: 'nestapi',
-      entities: [User, Profile, Post],
+      entities: [User, Profile, Post, Order],
       synchronize: true,
     }),
     UsersModule,

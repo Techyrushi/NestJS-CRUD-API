@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export type CreateUserParams = {
   username: string;
   password: string;
@@ -19,3 +20,10 @@ export type CreateUserPostParams = {
   title: string;
   description: string;
 };
+
+export type CreateUserOrderParams = {
+  p_name: string;
+  p_description: string;
+  p_amount: string;
+};
+

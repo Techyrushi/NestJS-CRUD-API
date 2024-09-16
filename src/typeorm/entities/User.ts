@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Post } from './Post';
 import { Profile } from './Profile';
+import { Order } from './Order';
 
 @Entity({ name: 'users' })
 export class User {
@@ -32,4 +33,7 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }

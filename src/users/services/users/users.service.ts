@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -7,16 +9,24 @@ import { User } from '../../../typeorm/entities/User';
 import {
   CreateUserParams,
   CreateUserPostParams,
+  CreateUserOrderParams,
   CreateUserProfileParams,
   UpdateUserParams,
 } from '../../../utils/types';
+import { Order } from '../../../typeorm/entities/Order';
+
 
 @Injectable()
 export class UsersService {
+  deleteOrder(id: number) {
+    throw new Error('Method not implemented.');
+  }
+
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Profile) private profileRepository: Repository<Profile>,
     @InjectRepository(Post) private postRepository: Repository<Post>,
+    @InjectRepository(Order) private orderRepository: Repository<Order>,
   ) {}
 
   findUsers() {
@@ -70,5 +80,21 @@ export class UsersService {
       user,
     });
     return this.postRepository.save(newPost);
+  }
+  async createUserOrder(
+    id: number,
+    createUserOrderDetails: CreateUserOrderParams,
+  ) {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user)
+      throw new HttpException(
+        'User not found. Cannot create Profile',
+        HttpStatus.BAD_REQUEST,
+      );
+    const newPost = this.orderRepository.create({
+      ...createUserOrderDetails,
+      user,
+    });
+    return this.orderRepository.save(newPost);
   }
 }
